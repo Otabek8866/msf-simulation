@@ -115,7 +115,7 @@ PROCESS_THREAD(msf_node_process, ev, data)
         LOG_INFO("Sent_to %d packet_number: %d\n", dst.u8[15], seqnum);
         seqnum++;
       }
-    etimer_set(&periodic_timer, SEND_INTERVAL);
+    etimer_set(&periodic_timer, (random_rand()%PACKET_SENDING_INTERVAL + 1) * CLOCK_SECOND);
   }
 
   PROCESS_END();
