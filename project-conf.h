@@ -16,9 +16,9 @@
 // you can use this funtion to finish initialization
 #define TSCH_CONF_AUTOSTART 0
 
-#define LOG_CONF_LEVEL_MAC LOG_LEVEL_WARN
-#define LOG_CONF_LEVEL_6TOP LOG_LEVEL_WARN
-#define LOG_CONF_LEVEL_RPL LOG_LEVEL_WARN
+#define LOG_CONF_LEVEL_MAC LOG_LEVEL_ERR
+#define LOG_CONF_LEVEL_6TOP LOG_LEVEL_ERR
+#define LOG_CONF_LEVEL_RPL LOG_LEVEL_ERR
 
 // UDP packet sending interval in seconds
 #define PACKET_SENDING_INTERVAL 30

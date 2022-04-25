@@ -16,7 +16,9 @@
 
 /********** Global variables ***********/
 #define UDP_PORT 8765
-#define SEND_INTERVAL (PACKET_SENDING_INTERVAL * CLOCK_SECOND)
+
+// waiting time till network convergence
+#define CONVERGENCE_TIME (1 * CLOCK_SECOND)
 
 // data to send to the server
 unsigned char custom_payload[UDP_PLAYLOAD_SIZE];
@@ -80,8 +82,12 @@ PROCESS_THREAD(msf_node_process, ev, data)
   // if this is a simple node, start sending upd packets
   LOG_INFO("Started UDP communication\n");
 
+  // wait till network is converged
+  etimer_set(&periodic_timer, CONVERGENCE_TIME);
+  PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+
   // start the timer for periodic udp packet sending
-  etimer_set(&periodic_timer, SEND_INTERVAL);
+  etimer_set(&periodic_timer, (random_rand()%PACKET_SENDING_INTERVAL + 1) * CLOCK_SECOND);
 
   // if(udp_socket_register(&s, NULL, NULL) < 0 ||
   //    udp_socket_bind(&s, APP_UDP_PORT) < 0) {
